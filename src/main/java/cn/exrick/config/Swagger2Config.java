@@ -38,10 +38,10 @@ public class Swagger2Config {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("XPay Api Documentation")
-                .description("XPay个人支付收款系统API接口文档")
-                .termsOfServiceUrl("http://xpay.exrick.cn/")
-                .contact(new Contact("Exrick", "http://blog.exrick.cn", "1012139570@qq.com"))
+                .title("BUPay Api Documentation")
+                .description("bupay布冰厅支付系统API接口文档")
+                .termsOfServiceUrl("http://www.bubbt.com/")
+                .contact(new Contact("Bubbt", "http://www.bubbt.com/", "xxxxxxxx@qq.com"))
                 .version("1.0.0")
                 .build();
     }
