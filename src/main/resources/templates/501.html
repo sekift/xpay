@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
-        <title>操作成功</title>
+        <title>操作失败 bupay - 布支付 布冰厅支付系统</title>
         <meta name="description" content="bupay布冰厅支付系统 布支付 无需签约 无需第三方SDK 完全免费">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
@@ -19,9 +19,10 @@
     <body>
         
             <div class="main">
-                <img src="http://oweupqzdv.bkt.clouddn.com/success.png" width="50">
-                <div class="text">恭喜您，支付成功！</div>
-                <div class="text">但由于您支付过少，无法将您的数据加入至支付表，抱歉！</div>
+                <img src="/assets/images/fail.png" width="50">
+                <div class="text">操作失败</div>
+                <div class="text"><span th:text="${orderId}"></span></div>
+                <div class="text"><span th:text="${price}"></span></div>
             </div>
     </body>
 </html>

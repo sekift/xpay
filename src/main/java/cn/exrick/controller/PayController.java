@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @author Exrickx
  */
 @Controller
-@Api(tags = "开放接口",description = "支付捐赠管理")
+@Api(tags = "开放接口",description = "支付支付管理")
 public class PayController {
 
     private static final Logger log= LoggerFactory.getLogger(PayController.class);
@@ -65,7 +65,7 @@ public class PayController {
     private String SERVER_URL;
 
     @RequestMapping(value = "/thanks/list",method = RequestMethod.GET)
-    @ApiOperation(value = "获取捐赠列表")
+    @ApiOperation(value = "获取支付列表")
     @ResponseBody
     public DataTablesResult getThanksList(){
 
@@ -76,7 +76,7 @@ public class PayController {
 
         }catch (Exception e){
             result.setSuccess(false);
-            result.setError("获取捐赠列表失败");
+            result.setError("获取支付列表失败");
             return result;
         }
         result.setData(list);
@@ -140,15 +140,14 @@ public class PayController {
         }
         return new ResultUtil<Object>().setData(pay);
     }
-
+    
     @RequestMapping(value = "/pay/add",method = RequestMethod.POST)
     @ApiOperation(value = "添加支付订单")
     @ResponseBody
     public Result<Object> addPay(@ModelAttribute Pay pay, HttpServletRequest request){
 
-        if(StringUtils.isBlank(pay.getNickName())||StringUtils.isBlank(String.valueOf(pay.getMoney()))
-                ||StringUtils.isBlank(pay.getEmail())||!EmailUtils.checkEmail(pay.getEmail())){
-            return new ResultUtil<Object>().setErrorMsg("请填写完整信息和正确的通知邮箱");
+        if(StringUtils.isBlank(pay.getNickName())||StringUtils.isBlank(String.valueOf(pay.getMoney()))){
+            return new ResultUtil<Object>().setErrorMsg("请填写完整信息");
         }
         //防炸库验证
         String ip= IpInfoUtils.getIpAddr(request);
@@ -157,22 +156,22 @@ public class PayController {
         }
         String temp=redisUtils.get(ip);
         if(StringUtils.isNotBlank(temp)){
-            return new ResultUtil<Object>().setErrorMsg("您提交的太频繁啦，作者的学生服务器要炸啦！请2分钟后再试");
+            return new ResultUtil<Object>().setErrorMsg("提交请勿太频繁,请20秒后再支付");
         }
         try {
             payService.addPay(pay);
             pay.setTime(StringUtils.getTimeStamp(new Date()));
         }catch (Exception e){
-            return new ResultUtil<Object>().setErrorMsg("添加捐赠支付订单失败");
+            return new ResultUtil<Object>().setErrorMsg("添加支付支付订单失败");
         }
         //记录缓存
-        redisUtils.set(ip,"added",IP_EXPIRE, TimeUnit.MINUTES);
+        redisUtils.set(ip,"added",IP_EXPIRE, TimeUnit.SECONDS);
 
         //给管理员发送审核邮件
         String tokenAdmin= UUID.randomUUID().toString();
         redisUtils.set(pay.getId(),tokenAdmin,ADMIN_EXPIRE,TimeUnit.DAYS);
         pay=getAdminUrl(pay,pay.getId(),tokenAdmin,MY_TOKEN);
-        emailUtils.sendTemplateMail(EMAIL_SENDER,EMAIL_RECEIVER,"【XPay个人收款支付系统】待审核处理","email-admin",pay);
+        emailUtils.sendTemplateMail(EMAIL_SENDER,EMAIL_RECEIVER,"【布冰厅支付系统】待审核处理","email-admin",pay);
 
         //给假管理员发送审核邮件
         if(StringUtils.isNotBlank(pay.getTestEmail())&&EmailUtils.checkEmail(pay.getTestEmail())){
@@ -180,7 +179,7 @@ public class PayController {
             String tokenFake=UUID.randomUUID().toString();
             redisUtils.set(FAKE_PRE+pay.getId(),tokenFake,FAKE_EXPIRE,TimeUnit.HOURS);
             pay2=getAdminUrl(pay2,FAKE_PRE+pay.getId(),tokenFake,MY_TOKEN);
-            emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getTestEmail(),"【XPay个人收款支付系统】待审核处理","email-fake",pay2);
+            emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getTestEmail(),"【布冰厅支付系统】待审核处理","email-fake",pay2);
         }
         return new ResultUtil<Object>().setData(null);
     }
@@ -216,6 +215,17 @@ public class PayController {
         }
         return new ResultUtil<Object>().setData(null);
     }
+    
+    @RequestMapping(value = "/order",method = RequestMethod.GET)
+    @ApiOperation(value = "支付下单")
+    public String order(@RequestParam(required = true) String orderId,
+                        @RequestParam(required = true) String price,
+                        Model model){
+
+    	model.addAttribute("orderId", orderId);
+    	model.addAttribute("price", price);
+        return "/order";
+    }
 
     @RequestMapping(value = "/pay/pass",method = RequestMethod.GET)
     @ApiOperation(value = "审核通过支付订单")
@@ -238,7 +248,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【XPay个人收款支付系统】支付成功通知","pay-success",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付成功通知","pay-success",pay);
             }
         }catch (Exception e){
             model.addAttribute("errorMsg","处理数据出错");
@@ -248,7 +258,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/passNotShow",method = RequestMethod.GET)
-    @ApiOperation(value = "审核通过但不显示加入捐赠表")
+    @ApiOperation(value = "审核通过但不显示加入支付表")
     public String passNotShowPay(@RequestParam(required = true) String id,
                                  @RequestParam(required = true) String token,
                                  Model model){
@@ -263,7 +273,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【XPay个人收款支付系统】支付成功通知","pay-notshow",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付成功通知","pay-notshow",pay);
             }
         }catch (Exception e){
             model.addAttribute("errorMsg","处理数据出错");
@@ -289,7 +299,7 @@ public class PayController {
             return "/500";
         }
         if(!myToken.equals(MY_TOKEN)){
-            model.addAttribute("errorMsg","您未通过二次验证，当我傻吗");
+            model.addAttribute("errorMsg","您未通过二次验证");
             return "/500";
         }
         try {
@@ -297,7 +307,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【XPay个人收款支付系统】支付失败通知","pay-fail",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付失败通知","pay-fail",pay);
             }
         }catch (Exception e){
             model.addAttribute("errorMsg","处理数据出错");
@@ -323,7 +333,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【XPay个人收款支付系统】支付失败通知","pay-fail",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付失败通知","pay-fail",pay);
             }
             payService.delPay(getPayId(id));
         }catch (Exception e){
