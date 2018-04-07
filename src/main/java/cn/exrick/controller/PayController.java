@@ -218,13 +218,13 @@ public class PayController {
     
     @RequestMapping(value = "/order",method = RequestMethod.GET)
     @ApiOperation(value = "支付下单")
-    public String order(@RequestParam(required = true) String orderId,
+    public Result<Object> order(@RequestParam(required = true) String orderId,
                         @RequestParam(required = true) String price,
                         Model model){
 
     	model.addAttribute("orderId", orderId);
     	model.addAttribute("price", price);
-        return "/order";
+        return new ResultUtil<Object>().setData(null);
     }
 
     @RequestMapping(value = "/pay/pass",method = RequestMethod.GET)
