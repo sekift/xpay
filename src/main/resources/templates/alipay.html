@@ -136,7 +136,7 @@
                                         </span>
                                     <em><span>¥</span><em id="money2"></em></em>
                                     <input type="text" class="disabled-btn" onclick="confirm()" id="confirm"
-                                           value="等待支付..." readonly>
+                                           value="等待支付(30s)" readonly>
                                 </div>
                             </div>
                         </div>
@@ -160,17 +160,6 @@
                 <div class="col-md-12">
                     <nav class="navbar navbar-default bootsnav footer-menu no-background">
                         <div class="container">
-
-                            <!-- Start Header Navigation -->
-                            <!-- <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                        data-target="#navbar-footer">
-                                    <i class="fa fa-bars"></i>
-                                </button>
-                                <a class="navbar-brand" href="index"><img src="assets/images/footer-logo.png"
-                                                                          class="logo" alt=""></a>
-                            </div> -->
-                            <!-- End Header Navigation -->
 
                             <!-- navbar menu -->
                             <div class="collapse navbar-collapse" id="navbar-footer">
@@ -204,7 +193,7 @@
                     <h4 class="modal-title" id="title">支付红包</h4>
                 </div>
                 <div class="modal-body" id="body">
-                    <img src="http://oweupqzdv.bkt.clouddn.com/1512881761970_small.jpg" class="qr-red"/>
+                    <img src="assets/images/alihongbao.png" class="qr-red"/>
                 </div>
                 <div class="modal-footer">
                     <button data-dismiss="modal" class="btn btn-warning" type="button">领取了</button>
@@ -257,7 +246,8 @@
     }
 
     $('#myModal').on('hide.bs.modal', function () {
-        countDown();
+        //countDown();
+        update(0);
         countTime();
     })
 
@@ -280,8 +270,25 @@
 
     }
 
-    var count = 25;
-    $("#confirm").attr("disabled","disabled");
+    var count = 30;
+    $("#confirm").disabled=true;
+    for(var i=1;i<=count;i++) {
+    	window.setTimeout("update(" + i + ")", i * 1000);
+    }
+    
+    function update(num) {
+    	if(num == count) {
+    		$("#confirm").removeAttr("class");
+            $("#confirm").removeAttr("disabled");
+            $("#confirm").attr("class", "main-btn");
+    		$("#confirm").val("确认已支付");
+    	}else{
+    		var printnr = count-num;
+    		$("#confirm").val("等待支付 (" + printnr +"s)");
+    	}
+    }
+    
+ /*   $("#confirm").attr("disabled","disabled");
     function countDown() {
         if (count == 0) {
             $("#confirm").removeAttr("class");
@@ -296,7 +303,8 @@
             countDown();
         }, 1000);
     }
-
+    */
+    
     function countTime() {
         var time = $.cookie('time');
         if (time <= 0) {
