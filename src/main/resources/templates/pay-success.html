@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8">
         <title>操作成功</title>
@@ -20,9 +20,9 @@
         
             <div class="main">
                 <img src="http://oweupqzdv.bkt.clouddn.com/success.png" width="50">
-                <div class="text">恭喜您，支付成功！</div>
+                <div class="text">恭喜您，订单号(昵称)：<span th:text="${nickName}"></span> 支付成功！</div>
                 <div class="text">十分感谢您的支付，您可以到这里查看到您的支付数据：
-                    <a href="http://www.bubbt.com/bupay/thanks">支付名单</a></div>
+                    <a href="http://bupay.bubbt.com/thanks">支付名单</a></div>
             </div>
     </body>
 </html>
