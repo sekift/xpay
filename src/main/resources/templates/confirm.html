@@ -30,7 +30,17 @@
         <link rel="stylesheet" href="assets/css/pay.css">
 
         <script src="assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-
+        
+        <script>
+            var _hmt = _hmt || [];
+            (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?6015536b970ef148edc32e4ab81fdc34";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+        
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse" style="background:#f1f2f7">
@@ -58,10 +68,9 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-center">
                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
+                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
                             <li><a href="pay">支付下单</a></li>
                             <li><a href="thanks">支付名单</a></li>
-                            <!-- <li><a href="http://xmall.exrick.cn" target="_blank">XMall商城</a></li> -->
-                            <!-- <li><a href="https://github.com/Exrick/bupay" target="_blank">开发教程</a></li> -->
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>   
@@ -81,6 +90,7 @@
                                 <div>
                                     <div class="content" style="min-height:28vw">
                                         <p class=""><i class="fa fa-check-circle icon-success" aria-hidden="true"></i>&nbsp;&nbsp;您的支付正在受理，请等待5-30分钟系统确认</p>
+                                        <p class="" style="font-size:16px;">&nbsp;&nbsp;也可以直接与我方联系，方式请看<a href="info" target="_blank">《布支付服务协议》</a></p>
                                         <p>总共花费 <span class="myprice" id="money"></span> 元</p>
                                         <input type="text" class="main-btn mybtn" value="查看结果" onclick="submit1()" readonly>
                                         <input type="text" class="main-btn mybtn" value="继续支付" onclick="submit2()" readonly>
@@ -107,19 +117,11 @@
                             <nav class="navbar navbar-default bootsnav footer-menu no-background">
                                 <div class="container">  
 
-                                    <!-- Start Header Navigation -->
-                                    <!-- <div class="navbar-header">
-                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-footer">
-                                            <i class="fa fa-bars"></i>
-                                        </button>
-                                        <a class="navbar-brand" href="index"><img src="assets/images/footer-logo.png" class="logo" alt=""></a>
-                                    </div> -->
-                                    <!-- End Header Navigation -->
-
                                     <!-- navbar menu -->
                                     <div class="collapse navbar-collapse" id="navbar-footer">
                                         <ul class="nav navbar-nav navbar-center">
                                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
+                                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
                                             <li><a href="pay">支付下单</a></li>
                                             <li><a href="thanks">支付名单</a></li>
                                          </ul>
