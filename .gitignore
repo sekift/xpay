@@ -5,3 +5,4 @@ target/
 *.iml
 
 *.bak
+src/main/resources/application.properties
