@@ -217,7 +217,7 @@ public class PayController {
     }
     
     @RequestMapping(value = "/order",method = RequestMethod.GET)
-    @ApiOperation(value = "赞赏下单")
+    @ApiOperation(value = "赞赏支持")
     public Result<Object> order(@RequestParam(required = true) String orderId,
                         @RequestParam(required = true) String price,
                         Model model){
