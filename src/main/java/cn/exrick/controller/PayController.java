@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @author Exrickx
  */
 @Controller
-@Api(tags = "开放接口",description = "支付支付管理")
+@Api(tags = "开放接口",description = "赞赏管理")
 public class PayController {
 
     private static final Logger log= LoggerFactory.getLogger(PayController.class);
@@ -65,7 +65,7 @@ public class PayController {
     private String SERVER_URL;
 
     @RequestMapping(value = "/thanks/list",method = RequestMethod.GET)
-    @ApiOperation(value = "获取支付列表")
+    @ApiOperation(value = "获取赞赏列表")
     @ResponseBody
     public DataTablesResult getThanksList(){
 
@@ -76,7 +76,7 @@ public class PayController {
 
         }catch (Exception e){
             result.setSuccess(false);
-            result.setError("获取支付列表失败");
+            result.setError("获取赞赏列表失败");
             return result;
         }
         result.setData(list);
@@ -85,7 +85,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/list",method = RequestMethod.GET)
-    @ApiOperation(value = "获取未支付数据")
+    @ApiOperation(value = "获取未赞赏数据")
     @ResponseBody
     public DataTablesResult getPayList(){
 
@@ -95,7 +95,7 @@ public class PayController {
             list=payService.getNotPayList();
         }catch (Exception e){
             result.setSuccess(false);
-            result.setError("获取未支付数据失败");
+            result.setError("获取未赞赏数据失败");
             return result;
         }
         result.setData(list);
@@ -104,7 +104,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/check/list",method = RequestMethod.GET)
-    @ApiOperation(value = "获取支付审核列表")
+    @ApiOperation(value = "获取赞赏审核列表")
     @ResponseBody
     public DataTablesResult getCheckList(){
 
@@ -114,7 +114,7 @@ public class PayController {
             list=payService.getPayList(0);
         }catch (Exception e){
             result.setSuccess(false);
-            result.setError("获取支付审核列表失败");
+            result.setError("获取赞赏审核列表失败");
             return result;
         }
         result.setData(list);
@@ -123,7 +123,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/{id}",method = RequestMethod.GET)
-    @ApiOperation(value = "获取支付数据")
+    @ApiOperation(value = "获取赞赏数据")
     @ResponseBody
     public Result<Object> getPayList(@PathVariable String id,
                                      @RequestParam(required = true) String token){
@@ -136,13 +136,13 @@ public class PayController {
         try {
             pay=payService.getPay(getPayId(id));
         }catch (Exception e){
-            return new ResultUtil<Object>().setErrorMsg("获取支付数据失败");
+            return new ResultUtil<Object>().setErrorMsg("获取赞赏数据失败");
         }
         return new ResultUtil<Object>().setData(pay);
     }
     
     @RequestMapping(value = "/pay/add",method = RequestMethod.POST)
-    @ApiOperation(value = "添加支付订单")
+    @ApiOperation(value = "添加赞赏订单")
     @ResponseBody
     public Result<Object> addPay(@ModelAttribute Pay pay, HttpServletRequest request){
 
@@ -156,13 +156,13 @@ public class PayController {
         }
         String temp=redisUtils.get(ip);
         if(StringUtils.isNotBlank(temp)){
-            return new ResultUtil<Object>().setErrorMsg("提交请勿太频繁,请20秒后再支付");
+            return new ResultUtil<Object>().setErrorMsg("提交请勿太频繁,请20秒后再赞赏");
         }
         try {
             payService.addPay(pay);
             pay.setTime(StringUtils.getTimeStamp(new Date()));
         }catch (Exception e){
-            return new ResultUtil<Object>().setErrorMsg("添加支付支付订单失败");
+            return new ResultUtil<Object>().setErrorMsg("添加赞赏赞赏失败");
         }
         //记录缓存
         redisUtils.set(ip,"added",IP_EXPIRE, TimeUnit.SECONDS);
@@ -171,7 +171,7 @@ public class PayController {
         String tokenAdmin= UUID.randomUUID().toString();
         redisUtils.set(pay.getId(),tokenAdmin,ADMIN_EXPIRE,TimeUnit.DAYS);
         pay=getAdminUrl(pay,pay.getId(),tokenAdmin,MY_TOKEN);
-        emailUtils.sendTemplateMail(EMAIL_SENDER,EMAIL_RECEIVER,"【布冰厅支付系统】待审核处理","email-admin",pay);
+        emailUtils.sendTemplateMail(EMAIL_SENDER,EMAIL_RECEIVER,"【布冰厅赞赏系统】待审核处理","email-admin",pay);
 
         //给假管理员发送审核邮件
         if(StringUtils.isNotBlank(pay.getTestEmail())&&EmailUtils.checkEmail(pay.getTestEmail())){
@@ -179,13 +179,13 @@ public class PayController {
             String tokenFake=UUID.randomUUID().toString();
             redisUtils.set(FAKE_PRE+pay.getId(),tokenFake,FAKE_EXPIRE,TimeUnit.HOURS);
             pay2=getAdminUrl(pay2,FAKE_PRE+pay.getId(),tokenFake,MY_TOKEN);
-            emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getTestEmail(),"【布冰厅支付系统】待审核处理","email-fake",pay2);
+            emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getTestEmail(),"【布冰厅赞赏系统】待审核处理","email-fake",pay2);
         }
         return new ResultUtil<Object>().setData(null);
     }
 
     @RequestMapping(value = "/pay/edit",method = RequestMethod.POST)
-    @ApiOperation(value = "编辑支付订单")
+    @ApiOperation(value = "编辑赞赏订单")
     @ResponseBody
     public Result<Object> editPay(@ModelAttribute Pay pay,
                                   @RequestParam(required = true) String id,
@@ -208,7 +208,7 @@ public class PayController {
             }
             payService.updatePay(pay);
         }catch (Exception e){
-            return new ResultUtil<Object>().setErrorMsg("编辑支付订单失败");
+            return new ResultUtil<Object>().setErrorMsg("编辑赞赏订单失败");
         }
         if(id.contains(FAKE_PRE)){
             redisUtils.set(id,"",1L,TimeUnit.SECONDS);
@@ -217,7 +217,7 @@ public class PayController {
     }
     
     @RequestMapping(value = "/order",method = RequestMethod.GET)
-    @ApiOperation(value = "支付下单")
+    @ApiOperation(value = "赞赏下单")
     public Result<Object> order(@RequestParam(required = true) String orderId,
                         @RequestParam(required = true) String price,
                         Model model){
@@ -228,7 +228,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/pass",method = RequestMethod.GET)
-    @ApiOperation(value = "审核通过支付订单")
+    @ApiOperation(value = "审核通过赞赏订单")
     public String addPay(@RequestParam(required = true) String id,
                          @RequestParam(required = true) String token,
                          @RequestParam(required = true) String myToken,
@@ -248,7 +248,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付成功通知","pay-success",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅赞赏系统】赞赏成功通知","pay-success",pay);
             }
         }catch (Exception e){
             model.addAttribute("errorMsg","处理数据出错");
@@ -258,7 +258,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/passNotShow",method = RequestMethod.GET)
-    @ApiOperation(value = "审核通过但不显示加入支付表")
+    @ApiOperation(value = "审核通过但不显示加入赞赏表")
     public String passNotShowPay(@RequestParam(required = true) String id,
                                  @RequestParam(required = true) String token,
                                  Model model){
@@ -273,7 +273,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付成功通知","pay-notshow",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅赞赏系统】赞赏成功通知","pay-notshow",pay);
             }
         }catch (Exception e){
             model.addAttribute("errorMsg","处理数据出错");
@@ -287,7 +287,7 @@ public class PayController {
 
 
     @RequestMapping(value = "/pay/back",method = RequestMethod.GET)
-    @ApiOperation(value = "审核驳回支付订单")
+    @ApiOperation(value = "审核驳回赞赏订单")
     public String backPay(@RequestParam(required = true) String id,
                           @RequestParam(required = true) String token,
                           @RequestParam(required = true) String myToken,
@@ -307,7 +307,7 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付失败通知","pay-fail",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅赞赏系统】赞赏失败通知","pay-fail",pay);
             }
         }catch (Exception e){
             model.addAttribute("errorMsg","处理数据出错");
@@ -320,7 +320,7 @@ public class PayController {
     }
 
     @RequestMapping(value = "/pay/del",method = RequestMethod.GET)
-    @ApiOperation(value = "删除支付订单")
+    @ApiOperation(value = "删除赞赏订单")
     @ResponseBody
     public Result<Object> delPay(@RequestParam(required = true) String id,
                          @RequestParam(required = true) String token){
@@ -333,12 +333,12 @@ public class PayController {
             //通知回调
             Pay pay=payService.getPay(getPayId(id));
             if(StringUtils.isNotBlank(pay.getEmail())&&EmailUtils.checkEmail(pay.getEmail())){
-                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅支付系统】支付失败通知","pay-fail",pay);
+                emailUtils.sendTemplateMail(EMAIL_SENDER,pay.getEmail(),"【布冰厅赞赏系统】赞赏失败通知","pay-fail",pay);
             }
             payService.delPay(getPayId(id));
         }catch (Exception e){
             log.error(e.getMessage());
-            return new ResultUtil<Object>().setErrorMsg("删除支付订单失败");
+            return new ResultUtil<Object>().setErrorMsg("删除赞赏订单失败");
         }
         if(id.contains(FAKE_PRE)){
             redisUtils.set(id,"",1L,TimeUnit.SECONDS);

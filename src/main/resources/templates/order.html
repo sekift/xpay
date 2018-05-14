@@ -5,8 +5,8 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>支付下单 - bupay - 布支付 布冰厅支付系统</title>
-        <meta name="description" content="bupay布冰厅支付系统 布支付 无需签约 无需第三方SDK 完全免费">
+        <title>赞赏下单 - bupay - 布赞赏 布冰厅赞赏系统</title>
+        <meta name="description" content="bupay布冰厅赞赏系统 布赞赏 无需签约 无需第三方SDK 完全免费">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="assets/images/favicon.ico">
 
@@ -78,9 +78,9 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-center">
                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
-                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
-                            <li><a href="pay">支付下单</a></li>
-                            <li><a href="thanks">支付名单</a></li>
+                            <li><a href="http://bupay.bubbt.com">布赞赏首页</a></li>
+                            <li><a href="pay">赞赏下单</a></li>
+                            <li><a href="thanks">赞赏名单</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>   
@@ -94,12 +94,12 @@
                             
                             <div class="gray-box">
                                 <div class="title">
-                                  <h2>布支付 - 确认订单</h2>
+                                  <h2>布赞赏 - 确认订单</h2>
                                 </div>
                                 <!--内容-->
                                 <div>
                                     <div class="order-info">
-                                        <h4 align="center">提交订单后请认真填写支付信息，避免审核失败而导致损失</h4>
+                                        <h4 align="center">提交订单后请认真填写赞赏信息，避免审核失败而导致损失</h4>
                                         <p class="payment-detail" style="color:red">由于订单需人工确认，建议下单时间为：09:00 - 22:00 </p>
                                         
                                         <div class="pay-info">
@@ -110,15 +110,15 @@
                                                 </div>
                                             </div>
                                             <div class="form-group" style="display:none">
-                                                <label for="money-choose" class="control-label col-sm-2">支付金额<span class="red-txt"> *</span></label>
+                                                <label for="money-choose" class="control-label col-sm-2">赞赏金额<span class="red-txt"> *</span></label>
                                                 <div class="col-sm-10">
                                                     <select class="form-control m-bot15" id="money-choose" name="money-choose">
-                                                        <option value="custom" selected>下单支付</option>
+                                                        <option value="custom" selected>下单赞赏</option>
                                                     </select>                                                
                                                 </div>
                                             </div>
                                             <div class="form-group" id="custom-input">
-                                                <label for="money-choose" class="control-label col-sm-2">订单支付金额<span class="red-txt"> *</span></label>
+                                                <label for="money-choose" class="control-label col-sm-2">订单赞赏金额<span class="red-txt"> *</span></label>
                                                 <div class="col-sm-10">
                                                     <input class="form-control" readonly="true" id="money" name="money" type="text" maxlength="20" th:value="${price}"/>
                                                 </div>
@@ -132,13 +132,13 @@
                                             <div class="form-group">
                                                 <label for="email" class="control-label col-sm-2">通知邮箱</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" id="email" name="email" type="text" maxlength="30" placeholder="支付审核结果将以邮件发送至您邮箱"/>
+                                                    <input class="form-control" id="email" name="email" type="text" maxlength="30" placeholder="赞赏审核结果将以邮件发送至您邮箱"/>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="email" class="control-label col-sm-2">支付账号</label>
+                                                <label for="email" class="control-label col-sm-2">赞赏账号</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" id="username" name="username" type="text" maxlength="30" placeholder="建议您填写支付账号昵称信息以核对"/>
+                                                    <input class="form-control" id="username" name="username" type="text" maxlength="30" placeholder="建议您填写赞赏账号昵称信息以核对"/>
                                                 </div>
                                             </div>
                                             <!-- <div class="form-group">
@@ -151,7 +151,7 @@
                                         </div>
 
                                         <div class="pay-type">
-                                            <div class="p-title">布支付 - 支付方式</div>
+                                            <div class="p-title">布赞赏 - 赞赏方式</div>
                                             <div class="pay-item">
                                               <div id="wechat" class="active" onclick="changeType(1)"><img src="assets/images/weixinpay@2x.png" alt=""></div>
                                               <div id="ali" class="" onclick="changeType(2)"><img src="assets/images/alipay@2x.png" alt=""></div>
@@ -168,7 +168,7 @@
                                           应付金额：
                                         </span>
                                         <em><span>¥</span><em id="realMoney"></em></em>
-                                        <input type="text" class="main-btn" value="立刻支付" onclick="submit()" id="submit" readonly>
+                                        <input type="text" class="main-btn" value="立刻赞赏" onclick="submit()" id="submit" readonly>
                                       </div>
                                     </div>
                                 </div>
@@ -206,9 +206,9 @@
                                     <div class="collapse navbar-collapse" id="navbar-footer">
                                         <ul class="nav navbar-nav navbar-center">
                                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
-                                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
-                                            <li><a href="pay">支付下单</a></li>
-                                            <li><a href="thanks">支付名单</a></li>
+                                            <li><a href="http://bupay.bubbt.com">布赞赏首页</a></li>
+                                            <li><a href="pay">赞赏下单</a></li>
+                                            <li><a href="thanks">赞赏名单</a></li>
                                         </ul>
                                     </div><!-- /.navbar-collapse -->
                                 </div>   
@@ -375,7 +375,7 @@
                 success:function (data) {
                     if(data.success==true){
                         $("#submit").removeAttr("disabled");
-                        $("#submit").val("立刻支付");
+                        $("#submit").val("立刻赞赏");
                         if(payType=="Alipay"){
                             window.location.href="/alipay";
                         }else if(payType=="Wechat"){
@@ -385,14 +385,14 @@
                         }
                     }else{
                         $("#submit").removeAttr("disabled");
-                        $("#submit").val("立刻支付");
+                        $("#submit").val("立刻赞赏");
                         showMsg(data.message);
                     }
                 },
                 error:function(XMLHttpRequest){
                     if(XMLHttpRequest.status!=200){
                         $("#submit").removeAttr("disabled");
-                        $("#submit").val("立刻支付");
+                        $("#submit").val("立刻赞赏");
                         alert('出错啦! 错误码:'+XMLHttpRequest.status);
                     }
                 }

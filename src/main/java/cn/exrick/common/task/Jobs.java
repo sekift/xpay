@@ -44,7 +44,7 @@ public class Jobs {
 
         log.info("定时执行清空除捐赠和审核中的数据完毕");
 
-        //设置未审核数据为支付失败
+        //设置未审核数据为赞赏失败
         List<Pay> list1=payDao.getByStateIs(0);
         for(Pay p:list1){
             p.setState(2);
@@ -52,11 +52,11 @@ public class Jobs {
             try {
                 payService.updatePay(p);
             }catch (Exception e){
-                log.error("设置未审核数据"+p.getId()+"为支付失败");
+                log.error("设置未审核数据"+p.getId()+"为赞赏失败");
                 e.printStackTrace();
             }
         }
 
-        log.info("定时执行设置未审核数据为支付失败完毕");
+        log.info("定时执行设置未审核数据为赞赏失败完毕");
     }
 }

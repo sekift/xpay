@@ -10,34 +10,34 @@ import java.util.List;
 public interface PayService {
 
     /**
-     * 获得支付表
+     * 获得赞赏表
      * @param state
      * @return
      */
     List<Pay> getPayList(Integer state);
 
     /**
-     * 获得未支付表
+     * 获得未赞赏表
      * @return
      */
     List<Pay> getNotPayList();
 
     /**
-     * 获得支付
+     * 获得赞赏
      * @param id
      * @return
      */
     Pay getPay(String id);
 
     /**
-     * 添加支付
+     * 添加赞赏
      * @param pay
      * @return
      */
     int addPay(Pay pay);
 
     /**
-     * 编辑支付
+     * 编辑赞赏
      * @param pay
      * @return
      */
@@ -52,7 +52,7 @@ public interface PayService {
     int changePayState(String id,Integer state);
 
     /**
-     * 删除除捐赠和审核中以外的数据支付
+     * 删除除捐赠和审核中以外的数据赞赏
      * @param id
      * @return
      */

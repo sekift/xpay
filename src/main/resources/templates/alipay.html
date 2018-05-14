@@ -9,9 +9,9 @@
 <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <title>bupay - 布支付 布冰厅支付系统</title>
-    <meta name="keywords" content="bupay布冰厅支付系统,布支付,无需签约,无需第三方SDK,完全免费">
-    <meta name="description" content="bupay布冰厅支付系统 布支付 无需签约 无需第三方SDK 完全免费">
+    <title>bupay - 布赞赏 布冰厅赞赏系统</title>
+    <meta name="keywords" content="bupay布冰厅赞赏系统,布赞赏,无需签约,无需第三方SDK,完全免费">
+    <meta name="description" content="bupay布冰厅赞赏系统 布赞赏 无需签约 无需第三方SDK 完全免费">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="assets/images/favicon.ico">
 
@@ -87,9 +87,9 @@
             <div class="collapse navbar-collapse" id="navbar-menu">
                 <ul class="nav navbar-nav navbar-center">
                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
-                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
-                            <li><a href="pay">支付下单</a></li>
-                            <li><a href="thanks">支付名单</a></li>
+                            <li><a href="http://bupay.bubbt.com">布赞赏首页</a></li>
+                            <li><a href="pay">赞赏下单</a></li>
+                            <li><a href="thanks">赞赏名单</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div>
@@ -118,11 +118,11 @@
                                         <img class="fn-left"
                                              src="https://t.alipayobjects.com/images/T1bdtfXfdiXXXXXXXX.png"
                                              alt="扫一扫标识">
-                                        <div class="fn-right">打开手机支付宝<br>扫一扫继续付款</div>
+                                        <div class="fn-right">打开手机赞赏宝<br>扫一扫继续付款</div>
                                     </div>
                                     <div class="timeout" style="display: none">二维码已过期</div>
                                 </div>
-                                <a class="download-alipay" href="https://mobile.alipay.com/index.htm" target="_blank">首次使用请下载手机支付宝</a>
+                                <a class="download-alipay" href="https://mobile.alipay.com/index.htm" target="_blank">首次使用请下载手机赞赏宝</a>
                                 <div class="count" id="time-box"></div>
 
                                 <div class="qrguide-area">
@@ -134,10 +134,10 @@
                                          class="hide" onclick="change()">
                                 </div>
 
-                                <img src="assets/images/red.png" width="50px" height="50px" class="red" title="支付领红包"
+                                <img src="assets/images/red.png" width="50px" height="50px" class="red" title="赞赏领红包"
                                      onclick="showRed()">
                             </div>
-                            <h3 style="color:red;font-size:14px;">声明：布支付所有扫码绝不马上扣钱，强制需要二次确认才完成支付，更多请看<a target="_blank" href="info">《布支付服务协议》</a>。</h3>
+                            <h3 style="color:red;font-size:14px;">声明：布赞赏所有扫码绝不马上扣钱，强制需要二次确认才完成赞赏，更多请看<a target="_blank" href="info">《布赞赏服务协议》</a>。</h3>
                         </div>
 
                         <div>
@@ -148,7 +148,7 @@
                                         </span>
                                     <em><span>¥</span><em id="money2"></em></em>
                                     <input type="text" class="disabled-btn" onclick="confirm()" id="confirm"
-                                           value="等待支付(30s)" readonly>
+                                           value="等待赞赏(30s)" readonly>
                                 </div>
                             </div>
                         </div>
@@ -177,9 +177,9 @@
                             <div class="collapse navbar-collapse" id="navbar-footer">
                                 <ul class="nav navbar-nav navbar-center">
                                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
-                                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
-                                            <li><a href="pay">支付下单</a></li>
-                                            <li><a href="thanks">支付名单</a></li>
+                                            <li><a href="http://bupay.bubbt.com">布赞赏首页</a></li>
+                                            <li><a href="pay">赞赏下单</a></li>
+                                            <li><a href="thanks">赞赏名单</a></li>
                                         </ul>
                             </div><!-- /.navbar-collapse -->
                         </div>
@@ -203,7 +203,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="title">支付红包</h4>
+                    <h4 class="modal-title" id="title">赞赏红包</h4>
                 </div>
                 <div class="modal-body" id="body">
                     <img src="assets/images/alihongbao.png" class="qr-red"/>
@@ -294,10 +294,10 @@
     		$("#confirm").removeAttr("class");
             $("#confirm").removeAttr("disabled");
             $("#confirm").attr("class", "main-btn");
-    		$("#confirm").val("确认已支付");
+    		$("#confirm").val("确认已赞赏");
     	}else{
     		var printnr = count-num;
-    		$("#confirm").val("等待支付 (" + printnr +"s)");
+    		$("#confirm").val("等待赞赏 (" + printnr +"s)");
     	}
     }
     
@@ -307,7 +307,7 @@
             $("#confirm").removeAttr("class");
             $("#confirm").removeAttr("disabled");
             $("#confirm").attr("class", "main-btn");
-            $("#confirm").val("确认已支付");
+            $("#confirm").val("确认已赞赏");
             return;
         } else {
             count--;
@@ -357,7 +357,7 @@
         if (s >= 0 && s <= 9) {
             s = "0" + s;
         }
-        $("#time-box").html("请于 "+ m + " 分 " + s + " 秒 内支付");
+        $("#time-box").html("请于 "+ m + " 分 " + s + " 秒 内赞赏");
     }
 
     function confirm() {

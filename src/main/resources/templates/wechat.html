@@ -5,9 +5,9 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
-        <title>bupay - 布支付 布冰厅支付系统</title>
-        <meta name="keywords" content="bupay布冰厅支付系统,布支付,无需签约,无需第三方SDK,完全免费">
-        <meta name="description" content="bupay布冰厅支付系统 布支付 无需签约 无需第三方SDK 完全免费">
+        <title>bupay - 布赞赏 布冰厅赞赏系统</title>
+        <meta name="keywords" content="bupay布冰厅赞赏系统,布赞赏,无需签约,无需第三方SDK,完全免费">
+        <meta name="description" content="bupay布冰厅赞赏系统 布赞赏 无需签约 无需第三方SDK 完全免费">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="assets/images/favicon.ico">
 
@@ -79,9 +79,9 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-center">
                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
-                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
-                            <li><a href="pay">支付下单</a></li>
-                            <li><a href="thanks">支付名单</a></li>
+                            <li><a href="http://bupay.bubbt.com">布赞赏首页</a></li>
+                            <li><a href="pay">赞赏下单</a></li>
+                            <li><a href="thanks">赞赏名单</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>   
@@ -112,7 +112,7 @@
                                         <img class="explain" src="assets/images/wechat-explain.png" alt="扫一扫标识">
                                         <div class="count" id="time-box"></div>
                                     </div>
-                                    <h3 style="color:red;font-size:14px;">声明：布支付所有扫码绝不马上扣钱，强制需要二次确认才完成支付，更多请看<a target="_blank" href="info">《布支付服务协议》</a>。</h3>
+                                    <h3 style="color:red;font-size:14px;">声明：布赞赏所有扫码绝不马上扣钱，强制需要二次确认才完成赞赏，更多请看<a target="_blank" href="info">《布赞赏服务协议》</a>。</h3>
                                 </div>
 
                                 <div>
@@ -122,7 +122,7 @@
               
                                         </span>
                                         <em><span>¥</span><em id="money2"></em></em>
-                                        <input type="text" class="disabled-btn" onclick="confirm()" id="confirm" value="等待支付(30s)" readonly style="margin-right:15px">
+                                        <input type="text" class="disabled-btn" onclick="confirm()" id="confirm" value="等待赞赏(30s)" readonly style="margin-right:15px">
                                       </div>
                                     </div>
                                 </div>
@@ -151,9 +151,9 @@
                                     <div class="collapse navbar-collapse" id="navbar-footer">
                                         <ul class="nav navbar-nav navbar-center">
                                             <li><a href="http://www.bubbt.com">布冰厅首页</a></li>
-                                            <li><a href="http://bupay.bubbt.com">布支付首页</a></li>
-                                            <li><a href="pay">支付下单</a></li>
-                                            <li><a href="thanks">支付名单</a></li>
+                                            <li><a href="http://bupay.bubbt.com">布赞赏首页</a></li>
+                                            <li><a href="pay">赞赏下单</a></li>
+                                            <li><a href="thanks">赞赏名单</a></li>
                                         </ul>
                                     </div><!-- /.navbar-collapse -->
                                 </div>   
@@ -220,10 +220,10 @@
         		$("#confirm").removeAttr("class");
                 $("#confirm").removeAttr("disabled");
                 $("#confirm").attr("class", "main-btn");
-        		$("#confirm").val("确认已支付");
+        		$("#confirm").val("确认已赞赏");
         	}else{
         		var printnr = count-num;
-        		$("#confirm").val("等待支付 (" + printnr +"s)");
+        		$("#confirm").val("等待赞赏 (" + printnr +"s)");
         	}
         }
         
@@ -234,7 +234,7 @@
                 $("#confirm").removeAttr("class");
                 $("#confirm").removeAttr("disabled");
                 $("#confirm").attr("class","main-btn");
-                $("#confirm").val("确认已支付");
+                $("#confirm").val("确认已赞赏");
                 return;
             } else {
                 count--;
@@ -284,7 +284,7 @@
             if (s >= 0 && s <= 9) {
                 s = "0" + s;
             }
-            $("#time-box").html("请于 "+ m + " 分 " + s + " 秒 内支付");
+            $("#time-box").html("请于 "+ m + " 分 " + s + " 秒 内赞赏");
         }
 
         function confirm(){

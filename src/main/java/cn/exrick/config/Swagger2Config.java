@@ -39,7 +39,7 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("BUPay Api Documentation")
-                .description("bupay布冰厅支付系统API接口文档")
+                .description("bupay布冰厅赞赏系统API接口文档")
                 .termsOfServiceUrl("http://www.bubbt.com/")
                 .contact(new Contact("Bubbt", "http://www.bubbt.com/", "xxxxxxxx@qq.com"))
                 .version("1.0.0")
